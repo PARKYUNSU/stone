@@ -79,7 +79,7 @@ class CustomDataset(Dataset):
 
 def get_dataloaders(
     data_dir: str = "./train",
-    img_size: int = 299,
+    img_size: int = 224,
     batch_size: int = 32,
     seed: int = 24,
     val_split: float = 0.3,
@@ -119,13 +119,13 @@ def get_dataloaders(
     # 증강(transform) 정의
     train_transform = A.Compose([
         PadSquare(value=(0, 0, 0)),
-        A.Resize((224, 224)),
+        A.Resize((img_size, img_size)),
         A.Normalize(mean=[0.485, 0.456, 0.406],std=[0.229, 0.224, 0.225]),
         ToTensorV2(),
     ])
     val_transform = A.Compose([
         PadSquare(value=(0, 0, 0)),
-        A.Resize((224, 224)),
+        A.Resize((img_size, img_size)),
         A.Normalize(mean=[0.485, 0.456, 0.406],std=[0.229, 0.224, 0.225]),
         ToTensorV2(),
     ])
